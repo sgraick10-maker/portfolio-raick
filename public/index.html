@@ -31,6 +31,7 @@
   <nav class="nav-links" aria-label="Seções">
     <a href="#sobre">Sobre</a><a href="#trabalho">Trabalho</a><a href="#contato">Contato</a>
   </nav>
+  <div class="lang-switch" role="group" aria-label="Idioma"><button data-lang="pt" aria-pressed="true">PT</button><button data-lang="en" aria-pressed="false">EN</button></div>
   <button class="menu-pill" id="menuBtn" aria-expanded="false" aria-controls="overlay">Menu <span>••</span></button>
 </header>
 
@@ -48,6 +49,13 @@
     <a href="https://www.linkedin.com/in/raicksilva" target="_blank" rel="noopener">LinkedIn ↗</a>
     <a href="https://github.com/sgraick10-maker" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
+</div>
+
+<div class="lang-prompt" id="langPrompt" role="dialog" aria-live="polite" hidden>
+  <button class="lp-close" aria-label="Close">×</button>
+  <p class="lp-title"><i></i><span id="lpTitle"></span></p>
+  <p class="lp-q" id="lpQ"></p>
+  <div class="lp-actions"><button class="lp-switch" id="lpSwitch"></button><button class="lp-stay" id="lpStay"></button></div>
 </div>
 
 <a class="next-btn" id="nextBtn" href="#sobre" aria-label="Ir para a próxima seção"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></svg></a>
@@ -88,7 +96,7 @@
     <div class="stats">
       <div><b>~<span class="count" data-to="5">0</span><sup>anos</sup></b><small>construindo produtos digitais</small></div>
       <div><b><span class="count" data-to="10">0</span>+</b><small>empresas e software houses</small></div>
-      <div><b><span class="count" data-to="2">0</span></b><small>países atendidos: Brasil e Reino Unido</small></div>
+      <div><b><span class="count" data-to="3">0</span></b><small>países atendidos: Brasil, Reino Unido e Estados Unidos</small></div>
       <div><b><span class="count" data-to="3">0</span></b><small>plataformas: web, iOS e mobile</small></div>
     </div>
   </section>
@@ -187,9 +195,9 @@
       <canvas id="gallery" aria-hidden="true"></canvas>
       <div class="work-caption"><a id="wkLink" href="https://lindacerimonial.pages.dev" target="_blank" rel="noopener"><b id="wkName">Linda Cerimonial</b><small id="wkDesc">Cerimonial de casamentos · Vale do Aço</small><span class="visit">Abrir site ↗</span></a><span class="wk-idx" id="wkIdx">01 / 03</span></div>
       <ul class="work-list" id="workList">
-        <li><a href="https://lindacerimonial.pages.dev" target="_blank" rel="noopener" data-img="img/lindacerimonial.jpg" data-desc="Cerimonial de casamentos · Vale do Aço">Linda Cerimonial</a></li>
-        <li><a href="https://nefi.com.br" target="_blank" rel="noopener" data-img="img/nefi.jpg" data-desc="Fisioterapia · Ipatinga">NEFI Fisioterapia</a></li>
-        <li><a href="https://lp-alinevalverde.vercel.app" target="_blank" rel="noopener" data-img="img/alinevalverde.jpg" data-desc="Psicologia infantil · Cel. Fabriciano e Ipatinga">Aline Valverde</a></li>
+        <li><a href="https://lindacerimonial.pages.dev" target="_blank" rel="noopener" data-img="img/lindacerimonial.jpg" data-desc="Cerimonial de casamentos · Vale do Aço" data-desc-en="Wedding planner · Vale do Aço, Brazil">Linda Cerimonial</a></li>
+        <li><a href="https://nefi.com.br" target="_blank" rel="noopener" data-img="img/nefi.jpg" data-desc="Fisioterapia · Ipatinga" data-desc-en="Physiotherapy clinic · Ipatinga, Brazil">NEFI Fisioterapia</a></li>
+        <li><a href="https://lp-alinevalverde.vercel.app" target="_blank" rel="noopener" data-img="img/alinevalverde.jpg" data-desc="Psicologia infantil · Cel. Fabriciano e Ipatinga" data-desc-en="Child psychologist · Coronel Fabriciano, Brazil">Aline Valverde</a></li>
       </ul>
     </div>
   </section>

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { initLang, ui } from './i18n.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -29,10 +30,10 @@ $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
 
 /* ---------- menu ---------- */
 const menuBtn = $('#menuBtn'), overlay = $('#overlay');
-function closeMenu() { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.firstChild.textContent = 'Menu '; lenis?.start(); }
+function closeMenu() { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.firstChild.textContent = ui('menu'); lenis?.start(); }
 menuBtn.addEventListener('click', () => {
   if (overlay.classList.contains('open')) return closeMenu();
-  overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.firstChild.textContent = 'Fechar '; lenis?.stop();
+  overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.firstChild.textContent = ui('close'); lenis?.stop();
 });
 addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
@@ -163,9 +164,13 @@ const hero = (() => {
       } else wrap(c);
     });
   };
-  wrap(p);
-  if (reduce) { $$('.w', p).forEach((w) => (w.style.opacity = 1)); }
-  else gsap.to($$('.w', p), { opacity: 1, stagger: .05, ease: 'none', scrollTrigger: { trigger: p, start: 'top 80%', end: 'bottom 45%', scrub: true } });
+  let tw = null;
+  const setup = () => {
+    tw?.scrollTrigger?.kill(); tw?.kill(); wrap(p);
+    if (reduce) { $$('.w', p).forEach((w) => (w.style.opacity = 1)); return; }
+    tw = gsap.to($$('.w', p), { opacity: 1, stagger: .05, ease: 'none', scrollTrigger: { trigger: p, start: 'top 80%', end: 'bottom 45%', scrub: true } });
+  };
+  setup(); document.addEventListener('langchange', setup);
 
   $$('.count').forEach((c) => {
     const o = { v: 0 }, to = +c.dataset.to;
@@ -208,7 +213,7 @@ function stepper(section, count, onStep, perStep = 70) {
 /* ---------- curved 3D gallery ---------- */
 (() => {
   const sec = $('#trabalho'), canvas = $('#gallery');
-  const items = $$('#workList a').map((a) => ({ href: a.href, name: a.textContent, desc: a.dataset.desc, img: a.dataset.img }));
+  const items = $$('#workList a').map((a) => ({ href: a.href, name: a.textContent, desc: a.dataset.desc, descEn: a.dataset.descEn, img: a.dataset.img }));
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -238,9 +243,10 @@ function stepper(section, count, onStep, perStep = 70) {
   const setActive = (i) => {
     if (i === active) return; active = i; const it = items[i];
     gsap.fromTo([ui.name, ui.desc], { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .45, stagger: .05 });
-    ui.name.textContent = it.name; ui.desc.textContent = it.desc; ui.link.href = it.href; ui.idx.textContent = `${String(i + 1).padStart(2, '0')} / ${String(items.length).padStart(2, '0')}`;
+    ui.name.textContent = it.name; ui.desc.textContent = document.documentElement.lang === 'en' ? it.descEn : it.desc; ui.link.href = it.href; ui.idx.textContent = `${String(i + 1).padStart(2, '0')} / ${String(items.length).padStart(2, '0')}`;
   };
   setActive(0);
+  document.addEventListener('langchange', () => { const a = active; active = -1; setActive(Math.max(0, a)); });
   const st = ScrollTrigger.create({ trigger: sec, start: 'top top', end: `+=${items.length * 55}%`, pin: sec.querySelector('.pin-wrap'), scrub: true,
     onUpdate: (s) => { if (!drag) target = s.progress * total; } });
 
@@ -293,7 +299,7 @@ function stepper(section, count, onStep, perStep = 70) {
         if (!s.isActive) return;
         $$('.exp-list li').forEach((x) => x.classList.toggle('is-on', x === li || (x.compareDocumentPosition(li) & Node.DOCUMENT_POSITION_FOLLOWING)));
         const to = +li.dataset.y;
-        gsap.to(o, { v: to, duration: .8, ease: 'power2.out', onUpdate: () => { yr.textContent = Math.round(o.v); lbl.textContent = `Ano ${Math.round(o.v) - 2020}`; } });
+        gsap.to(o, { v: to, duration: .8, ease: 'power2.out', onUpdate: () => { yr.textContent = Math.round(o.v); lbl.textContent = `${ui('year')} ${Math.round(o.v) - 2020}`; } });
       } });
   });
   $$('.exp-list li')[0].classList.add('is-on');
@@ -306,3 +312,5 @@ if (!reduce) {
   });
 }
 addEventListener('load', () => ScrollTrigger.refresh());
+initLang({ promptDelay: 3200 });
+document.addEventListener('langchange', () => { $('#yrLabel').textContent = `${ui('year')} ${+$('#yr').textContent - 2020}`; requestAnimationFrame(() => ScrollTrigger.refresh()); });
