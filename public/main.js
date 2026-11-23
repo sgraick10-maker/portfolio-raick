@@ -92,24 +92,28 @@ const hero = (() => {
   g.setAttribute('position', new THREE.BufferAttribute(sphere, 3));
   g.setAttribute('aScatter', new THREE.BufferAttribute(scatter, 3));
   g.setAttribute('aRnd', new THREE.BufferAttribute(rnd, 1));
-  const uniforms = { uTime: { value: 0 }, uGather: { value: 0 }, uExplode: { value: 0 }, uMouse: { value: new THREE.Vector3(9, 9, 0) }, uPx: { value: renderer.getPixelRatio() } };
+  g.setAttribute('aPortrait', new THREE.BufferAttribute(new Float32Array(sphere), 3));
+  g.setAttribute('aBright', new THREE.BufferAttribute(new Float32Array(N).fill(1), 1));
+  const uniforms = { uTime: { value: 0 }, uGather: { value: 0 }, uExplode: { value: 0 }, uPortrait: { value: 0 }, uMouse: { value: new THREE.Vector3(9, 9, 0) }, uPx: { value: renderer.getPixelRatio() } };
   const mat = new THREE.ShaderMaterial({
     uniforms, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     vertexShader: `
-      uniform float uTime,uGather,uExplode,uPx; uniform vec3 uMouse;
-      attribute vec3 aScatter; attribute float aRnd; varying float vA; varying float vT;
+      uniform float uTime,uGather,uExplode,uPx,uPortrait; uniform vec3 uMouse;
+      attribute vec3 aScatter, aPortrait; attribute float aRnd, aBright; varying float vA; varying float vT;
       void main(){
         vec3 p = position;
         float n = sin(p.y*3.1+uTime*.9+aRnd*6.)*.5+sin(p.x*2.7-uTime*.7)*.5;
         p *= 1. + n*.045;
         float ca=cos(uTime*.12), sa=sin(uTime*.12); p.xz = mat2(ca,-sa,sa,ca)*p.xz;
+        vec3 pp = aPortrait + vec3(sin(uTime*.8+aRnd*40.)*.012, cos(uTime*.7+aRnd*30.)*.012, sin(uTime*.5+aPortrait.y*3.)*.05);
+        p = mix(p, pp, uPortrait);
         vec3 q = mix(aScatter, p, smoothstep(0.,1.,clamp(uGather*1.25-aRnd*.25,0.,1.)));
         q = mix(q, q*2.6 + vec3(0.,0.,1.5)*aRnd, uExplode);
         vec3 d = q - uMouse; float m = smoothstep(.9,0.,length(d.xy)); q += normalize(d+1e-4)*m*.35;
         vec4 mv = modelViewMatrix*vec4(q,1.);
         gl_Position = projectionMatrix*mv;
-        gl_PointSize = (1.6+aRnd*1.6)*uPx*(6./-mv.z);
-        vA = smoothstep(-1.6,1.6,q.z)*.85+.15; vT = aRnd;
+        gl_PointSize = mix(1.6+aRnd*1.6, 1.3+aBright*1.9, uPortrait)*uPx*(6./-mv.z);
+        vA = mix(smoothstep(-1.6,1.6,q.z)*.85+.15, .18+aBright*.82, uPortrait); vT = aRnd;
       }`,
     fragmentShader: `
       varying float vA; varying float vT;
@@ -122,7 +126,7 @@ const hero = (() => {
   addEventListener('pointermove', (e) => { ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); });
   const resize = () => {
     const w = canvas.clientWidth, h = canvas.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
-    pts.position.x = w > 900 ? -1.35 : 0; pts.position.y = w > 900 ? 0.15 : 0.55; pts.scale.setScalar(w > 900 ? 1 : 0.78);
+    pts.position.x = w > 900 ? -1.35 : 0; pts.position.y = w > 900 ? 0.15 : 0.5; pts.scale.setScalar(w > 900 ? 1 : 0.56);
   };
   resize(); addEventListener('resize', resize);
   let visible = true;
@@ -137,6 +141,28 @@ const hero = (() => {
   };
   loop();
   ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true, onUpdate: (s) => { uniforms.uExplode.value = s.progress; } });
+  // retrato em partículas (amostra os pixels claros do rosto, como no inacionakiti.com)
+  const img = new Image();
+  img.onload = () => {
+    const w = img.width, h = img.height, c = document.createElement('canvas'); c.width = w; c.height = h;
+    const ctx = c.getContext('2d', { willReadFrequently: true }); ctx.drawImage(img, 0, 0);
+    const d = ctx.getImageData(0, 0, w, h).data, cand = [];
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const k = (y * w + x) * 4, l = (0.2126 * d[k] + 0.7152 * d[k + 1] + 0.0722 * d[k + 2]) / 255;
+      const wt = Math.pow(Math.min(1, Math.max(0, (l - 0.255) / 0.5)), 0.8); if (wt > 0) cand.push(x, y, wt);
+    }
+    if (!cand.length) return;
+    const H3 = 3.9, W3 = H3 * w / h, port = g.attributes.aPortrait.array, br = g.attributes.aBright.array;
+    for (let i = 0; i < N; i++) {
+      let j; do { j = (Math.random() * cand.length / 3 | 0) * 3; } while (Math.random() > cand[j + 2] * 0.9 + 0.1);
+      const x = cand[j] + Math.random() - .5, y = cand[j + 1] + Math.random() - .5, b = cand[j + 2];
+      port[i * 3] = (x / w - .5) * W3; port[i * 3 + 1] = -(y / h - .5) * H3; port[i * 3 + 2] = (b - .5) * .35 + (Math.random() - .5) * .08;
+      br[i] = b;
+    }
+    g.attributes.aPortrait.needsUpdate = true; g.attributes.aBright.needsUpdate = true;
+    gsap.to(uniforms.uPortrait, { value: 1, duration: reduce ? 0 : 2.2, ease: 'power3.inOut', delay: uniforms.uGather.value > .5 ? 0 : 1.6 });
+  };
+  img.src = 'img/retrato-particulas.jpg';
   return { gather: () => gsap.to(uniforms.uGather, { value: 1, duration: reduce ? 0 : 2.6, ease: 'power3.out' }) };
 })();
 
@@ -151,6 +177,12 @@ const hero = (() => {
     .to('.nav', { autoAlpha: 1, y: 0, duration: .8 }, '-=.2')
     .to('.hero h1, .hero-copy p, .hero-ctas, .hero-clock', { autoAlpha: 1, y: 0, duration: 1, stagger: .1, ease: 'power3.out' }, '-=.4');
 })();
+
+/* ---------- cine: zoom-out + palavras ---------- */
+if (!reduce) {
+  gsap.to('.cine img', { scale: 1, ease: 'none', scrollTrigger: { trigger: '.cine', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.from('.cine-word', { y: 60, autoAlpha: 0, stagger: .12, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.cine', start: 'top 55%' } });
+}
 
 /* ---------- about: word reveal + counters ---------- */
 (() => {
