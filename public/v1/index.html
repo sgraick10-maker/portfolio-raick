@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raick Silva — Desenvolvedor Full Stack</title>
+<meta name="description" content="Desenvolvedor Full Stack com quase 5 anos de experiência. Desenvolvimento agêntico com Claude Code e Codex, TypeScript/React, React Native, Swift/SwiftUI, Python, PostgreSQL e Supabase.">
+<meta property="og:title" content="Raick Silva — Desenvolvedor Full Stack">
+<meta property="og:description" content="Da especificação ao deploy, com agentes de IA. Web, iOS e mobile.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=erode@300,400,500,401&display=swap">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#0d0d0b; --bg2:#141412; --line:#26251f; --text:#ece9e1; --muted:#8f8c83; --dim:#5d5b55;
+  --accent:#ff6a3d; --ok:#9fd38b;
+  --serif:"Erode",Georgia,serif; --sans:"Switzer",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --wrap:1180px; --gut:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font:400 17px/1.6 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#111}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.mono{font-family:var(--mono);font-size:13px;letter-spacing:.01em}
+.label{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+
+/* nav */
+header.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.nav.scrolled{border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:var(--serif);font-size:21px;letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+.nav ul{display:flex;gap:28px;list-style:none}
+.nav ul a{font-size:14px;color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--text)}
+.nav .cta{font-size:14px;border-bottom:1px solid var(--accent);padding-bottom:2px}
+.menu-btn{display:none;background:none;border:0;color:var(--text);font:500 14px var(--sans);cursor:pointer}
+
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 0 56px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:28px}
+.status{display:inline-flex;align-items:center;gap:8px}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 20%,transparent)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(56px,11.5vw,168px);line-height:.9;letter-spacing:-.035em}
+h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;margin-top:44px;align-items:end}
+.lede{font-size:clamp(19px,2vw,23px);line-height:1.45;max-width:30ch;color:var(--text)}
+.lede b{font-weight:500;color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border:1px solid var(--line);border-radius:999px;font-size:15px;transition:border-color .2s,background .2s,color .2s}
+.btn:hover{border-color:var(--text)}
+.btn.primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#111}
+.btn svg{width:15px;height:15px}
+
+/* terminal — signature */
+.term{border:1px solid var(--line);border-radius:14px;background:var(--bg2);overflow:hidden}
+.term-top{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line)}
+.dots{display:flex;gap:6px}.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.term-body{padding:18px 18px 20px;font-family:var(--mono);font-size:13px;line-height:1.85;min-height:236px;color:var(--muted)}
+.term-body .ln{display:flex;gap:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.term-body .k{color:var(--text)}
+.term-body .a{color:var(--accent)}
+.term-body .g{color:var(--ok)}
+.caret{display:inline-block;width:8px;height:15px;background:var(--accent);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* sections */
+section{padding:clamp(88px,12vw,150px) 0;border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:220px 1fr;gap:40px;margin-bottom:64px}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(38px,5.6vw,72px);line-height:1;letter-spacing:-.025em;max-width:16ch}
+h2 em{font-style:italic;color:var(--accent)}
+.sec-head p{color:var(--muted);max-width:56ch;margin-top:22px}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line)}
+.step{padding:26px 22px 8px 0;border-right:1px solid var(--line);margin-right:22px}
+.step:last-child{border-right:0;margin-right:0}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.step h3{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:-.01em;margin:16px 0 10px}
+.step p{font-size:15px;color:var(--muted);line-height:1.55}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:48px}
+.chip{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+
+/* work */
+.work{display:grid;gap:0}
+.proj{display:grid;grid-template-columns:220px 1fr 280px;gap:40px;padding:44px 0;border-top:1px solid var(--line)}
+.proj:last-child{border-bottom:1px solid var(--line)}
+.proj h3{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,44px);line-height:1.05;letter-spacing:-.02em}
+.proj .role{color:var(--muted);margin-top:10px}
+.proj ul{list-style:none;display:grid;gap:10px}
+.proj li{padding-left:22px;position:relative;color:#cfccc4}
+.proj li::before{content:"";position:absolute;left:0;top:.75em;width:10px;height:1px;background:var(--accent)}
+.proj .stack{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.tag{font-family:var(--mono);font-size:12px;color:var(--muted);padding:4px 9px;background:var(--bg2);border:1px solid var(--line);border-radius:6px}
+
+
+/* sites */
+.sites{display:grid;grid-template-columns:repeat(2,1fr);gap:48px 32px}
+.site{display:block}
+.site:first-child{grid-column:1/-1}
+.site:first-child .shot{aspect-ratio:21/9}
+.shot{aspect-ratio:16/10;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--bg2)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.site:hover .shot img{transform:scale(1.025)}
+.site-meta{display:flex;justify-content:space-between;align-items:start;gap:16px;margin-top:16px}
+.site h3{font-family:var(--serif);font-weight:400;font-size:24px;letter-spacing:-.01em}
+.site p{color:var(--muted);font-size:14.5px;margin-top:2px}
+.site .arrow{color:var(--muted);transition:color .2s}
+.site:hover .arrow{color:var(--accent)}
+@media (max-width:720px){.sites{grid-template-columns:1fr;gap:40px}.site:first-child .shot{aspect-ratio:16/10}}
+
+/* timeline */
+.tl{display:grid}
+.row{display:grid;grid-template-columns:220px 1fr auto;gap:40px;padding:26px 0;border-top:1px solid var(--line);align-items:baseline}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row .when{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.row h4{font-family:var(--serif);font-weight:400;font-size:24px;letter-spacing:-.01em}
+.row h4 span{color:var(--muted);font-family:var(--sans);font-size:15px;font-weight:400;margin-left:8px}
+.row p{color:var(--muted);font-size:15.5px;margin-top:6px;max-width:62ch}
+.row .kind{font-family:var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.sk{background:var(--bg);padding:30px 28px 34px}
+.sk h3{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:18px}
+.sk p{font-size:16px;line-height:1.75;color:#d8d5cd}
+
+/* contact */
+.contact h2{font-size:clamp(48px,9vw,128px);max-width:none}
+.contact .links{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border-top:1px solid var(--line)}
+.contact .links a{padding:24px 20px 24px 0;border-right:1px solid var(--line);margin-right:20px;display:block;transition:color .2s}
+.contact .links a:last-child{border-right:0}
+.contact .links a:hover{color:var(--accent)}
+.contact .links .label{display:block;margin-bottom:8px}
+.contact .links b{font-weight:500;font-size:17px;word-break:break-word}
+footer{padding:28px 0 40px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* entrance (hero only) */
+.in{opacity:0;transform:translateY(14px);animation:in .9s cubic-bezier(.2,.7,.2,1) forwards}
+.d1{animation-delay:.08s}.d2{animation-delay:.2s}.d3{animation-delay:.34s}.d4{animation-delay:.5s}
+@keyframes in{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.in{animation:none;opacity:1;transform:none}.caret{animation:none}html{scroll-behavior:auto}}
+
+/* responsive */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr}
+  .sec-head{grid-template-columns:1fr;gap:16px}
+  .steps{grid-template-columns:1fr 1fr}
+  .step{border-right:0;margin-right:0;border-bottom:1px solid var(--line);padding:24px 18px 24px 0}
+  .proj{grid-template-columns:1fr;gap:20px}
+  .row{grid-template-columns:1fr;gap:6px}
+  .skills{grid-template-columns:1fr 1fr}
+  .contact .links{grid-template-columns:1fr 1fr}
+  .contact .links a{border-right:0;border-bottom:1px solid var(--line);margin-right:0}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .nav ul{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px var(--gut) 16px}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:12px 0;font-size:16px}
+  .menu-btn{display:block}
+  .steps,.skills,.contact .links{grid-template-columns:1fr}
+  .term-body{font-size:12px;min-height:220px}
+  .hero{padding-top:104px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand">Raick Silva<span>.</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+    <ul id="menu">
+      <li><a href="#processo">Processo</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#sites">Sites</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#competencias">Competências</a></li>
+      <li><a href="#contato" class="cta">Contato</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero wrap">
+    <div class="meta in d1">
+      <span class="label status"><i></i>Disponível para novos projetos</span>
+      <span class="label">Coronel Fabriciano, MG · Remoto</span>
+    </div>
+    <h1 class="in d2">Raick<br><em>Silva</em></h1>
+    <div class="hero-grid">
+      <div class="in d3">
+        <p class="lede">Desenvolvedor Full Stack. Levo produtos <b>da especificação ao deploy</b> orientando agentes de IA, em web, iOS e mobile.</p>
+        <div class="actions">
+          <a class="btn primary" href="#projetos">Ver projetos</a>
+          <a class="btn" href="../raick-silva-curriculo.pdf" download>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v9m0 0L4.5 7.5M8 11l3.5-3.5M2.5 14h11"/></svg>
+            Currículo (PDF)
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/raicksilva" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="term in d4" aria-label="Fluxo de trabalho spec-driven">
+        <div class="term-top"><div class="dots"><i></i><i></i><i></i></div><span class="mono" style="color:var(--dim)">~/ekklesiahub · claude</span></div>
+        <div class="term-body" id="term" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="processo">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">01 — Processo</span>
+        <div>
+          <h2>Eu especifico, os agentes executam, <em>eu reviso</em>.</h2>
+          <p>Comecei em Bubble e Low-Code e migrei para código com uma abordagem agêntica. Uso Claude Code e Codex com Spec-Driven Development (Spec Kit e BMAD Method): o agente escreve, mas cada decisão de arquitetura, regra de negócio e linha que vai para produção passa por mim.</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><h3>Especificar</h3><p>Requisitos, regras de negócio e critérios de aceite escritos antes de qualquer código.</p></div>
+        <div class="step"><span class="n">02</span><h3>Planejar</h3><p>Arquitetura, modelagem do banco e tarefas pequenas e verificáveis.</p></div>
+        <div class="step"><span class="n">03</span><h3>Implementar</h3><p>Agentes com contexto, skills e MCP executam tarefa por tarefa.</p></div>
+        <div class="step"><span class="n">04</span><h3>Revisar</h3><p>Leio o diff inteiro: bugs, segurança, testes e consistência com o projeto.</p></div>
+        <div class="step"><span class="n">05</span><h3>Entregar</h3><p>Commits atômicos, pull request, deploy e documentação.</p></div>
+      </div>
+      <div class="tools">
+        <span class="chip">Claude Code</span><span class="chip">Codex</span><span class="chip">Spec Kit</span><span class="chip">BMAD Method</span><span class="chip">MCP</span><span class="chip">Skills e agentes</span><span class="chip">Docker</span><span class="chip">Git · GitHub</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">02 — Projetos atuais</span>
+        <div>
+          <h2>No que estou <em>trabalhando</em> agora.</h2>
+          <p>Vários clientes em paralelo, do produto próprio ao app nativo para fora do país.</p>
+        </div>
+      </div>
+      <div class="work">
+        <article class="proj">
+          <div><span class="label">SaaS próprio · 2026 —</span></div>
+          <div>
+            <h3>EkklesiaHub</h3>
+            <p class="role">Founder &amp; Software Developer</p>
+            <ul style="margin-top:22px">
+              <li>Plataforma de gestão para igrejas: membros, ministérios, grupos, escalas, eventos, comunicação e financeiro.</li>
+              <li>Arquitetura, modelagem do banco, perfis de acesso e regras de negócio definidos do zero.</li>
+              <li>Em fase final, pronto para validação em uma igreja real; roadmap para SaaS multi-igreja e app nativo.</li>
+            </ul>
+          </div>
+          <div class="stack"><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Supabase</span><span class="tag">PostgreSQL</span><span class="tag">Expo</span></div>
+        </article>
+        <article class="proj">
+          <div><span class="label">Cliente · Londres · 2026 —</span></div>
+          <div>
+            <h3>Cleaner2Day</h3>
+            <p class="role">Software Developer (iOS)</p>
+            <ul style="margin-top:22px">
+              <li>App iOS nativo para um marketplace de limpeza residencial em Londres.</li>
+              <li>Fluxos de reserva, precificação, catálogo de serviços, profissionais e avaliações.</li>
+              <li>Desenvolvimento e melhorias contínuas, com Claude Code e Codex no dia a dia.</li>
+            </ul>
+          </div>
+          <div class="stack"><span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">iOS</span></div>
+        </article>
+        <article class="proj">
+          <div><span class="label">Agro · 2025 — 2026</span></div>
+          <div>
+            <h3>Bovichain</h3>
+            <p class="role">Software Developer</p>
+            <ul style="margin-top:22px">
+              <li>Gestão de fazendas e rastreabilidade de animais ao longo do ciclo produtivo.</li>
+              <li>Solução offline: SQLite local sincronizado ao Bubble, com Supabase como camada intermediária.</li>
+            </ul>
+          </div>
+          <div class="stack"><span class="tag">Bubble</span><span class="tag">SQLite</span><span class="tag">Supabase</span><span class="tag">Sync offline</span></div>
+        </article>
+        <article class="proj">
+          <div><span class="label">Autônomo · 2026 —</span></div>
+          <div>
+            <h3>Apps e sites para clientes</h3>
+            <p class="role">Desenvolvedor Full Stack</p>
+            <ul style="margin-top:22px">
+              <li>Novo aplicativo mobile em React Native para cliente.</li>
+              <li>Landing pages e sites para negócios do Vale do Aço (ex.: NEFIH Fisioterapia, Ipatinga), da proposta à publicação.</li>
+            </ul>
+          </div>
+          <div class="stack"><span class="tag">React Native</span><span class="tag">Astro</span><span class="tag">React</span><span class="tag">Cloudflare</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="sites">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">03 — Sites publicados</span>
+        <div>
+          <h2>Sites no ar para <em>negócios locais</em>.</h2>
+          <p>Feitos com Astro e publicados no Cloudflare Pages, do conceito visual ao deploy. Clique para abrir o site.</p>
+        </div>
+      </div>
+      <div class="sites">
+        <a class="site" href="https://lindacerimonial.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="../img/lindacerimonial.jpg" alt="Página inicial do site Linda Cerimonial" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Linda Cerimonial</h3><p>Cerimonial de casamentos · Vale do Aço</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://oliveirabezerra.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="../img/oliveirabezerra.jpg" alt="Página inicial do site Oliveira &amp; Bezerra" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Oliveira &amp; Bezerra</h3><p>Advocacia · Ipatinga</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://genainapatricia.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="../img/genainapatricia.jpg" alt="Página inicial do site Dra. Genaina Patrícia" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Dra. Genaina Patrícia</h3><p>Odontologia · Caratinga</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://limiarstudio.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="../img/limiarstudio.jpg" alt="Página inicial do site Limiar" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Limiar</h3><p>Arquitetura e engenharia · Ipatinga</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://arena-praia-fabri.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="../img/arena-praia-fabri.jpg" alt="Página inicial do site Arena Praia Fabri" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Arena Praia Fabri</h3><p>Beach tennis e vôlei · Cel. Fabriciano</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://autotech-car-service.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="../img/autotech-car-service.jpg" alt="Página inicial do site Autotech" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Autotech</h3><p>Mecânica e remap · Cel. Fabriciano</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://borracharia-do-belengo.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="../img/borracharia-do-belengo.jpg" alt="Página inicial do site Borracharia do Belengo" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Borracharia do Belengo</h3><p>Pneus e serviços · Cel. Fabriciano</p></div><span class="arrow">↗</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">04 — Experiência</span>
+        <div>
+          <h2>Quase <em>5 anos</em> construindo produtos.</h2>
+          <p>Software houses, startups e clientes diretos. Antes disso, redes e fibra óptica em campo.</p>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="row"><span class="when">Mar 2026 — atual</span><div><h4>EkklesiaHub<span>Founder &amp; Software Developer</span></h4><p>SaaS de gestão para igrejas, criado do zero em fluxo spec-driven.</p></div><span class="kind">Produto próprio</span></div>
+        <div class="row"><span class="when">Jan 2026 — atual</span><div><h4>Cleaner2Day<span>Software Developer (iOS)</span></h4><p>App nativo Swift/SwiftUI para marketplace de limpeza em Londres.</p></div><span class="kind">Remoto · UK</span></div>
+        <div class="row"><span class="when">2026 — atual</span><div><h4>Empresa própria<span>Desenvolvedor Full Stack</span></h4><p>App React Native e sites para negócios do Vale do Aço.</p></div><span class="kind">Autônomo</span></div>
+        <div class="row"><span class="when">Nov 2025 — Jul 2026</span><div><h4>Bovichain<span>Software Developer</span></h4><p>Rastreabilidade de rebanho, módulos em Bubble e sincronização offline com SQLite e Supabase.</p></div><span class="kind">Tempo integral</span></div>
+        <div class="row"><span class="when">Jul 2025 — Nov 2025</span><div><h4>Neural Business AI<span>Software Developer</span></h4><p>Bubble com back-end em Xano e Supabase: regras de negócio, workflows e integrações.</p></div><span class="kind">Freelance</span></div>
+        <div class="row"><span class="when">Nov 2024 — Jun 2025</span><div><h4>Cazin<span>Software Developer</span></h4><p>Produtos para diferentes clientes com Bubble e Supabase: dados, workflows e regras de negócio.</p></div><span class="kind">Software house</span></div>
+        <div class="row"><span class="when">Mar 2023 — Ago 2024</span><div><h4>Software houses<span>Bubble Developer</span></h4><p>Hamurabi (gestão de investimentos), Studio Pipple, Kafé Apps, Fensor (fintech para escolinhas de futebol) e Softaliza (eventos e associações).</p></div><span class="kind">Remoto</span></div>
+        <div class="row"><span class="when">Ago 2021 — Fev 2023</span><div><h4>Ultranet Telecom<span>Técnico de Redes e Fibra Óptica</span></h4><p>Instalação, manutenção e diagnóstico de redes cabeadas e de fibra; atendimento em campo.</p></div><span class="kind">Presencial</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="competencias">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">05 — Competências</span>
+        <div><h2>Stack e <em>ferramentas</em>.</h2></div>
+      </div>
+      <div class="skills">
+        <div class="sk"><h3>Desenvolvimento agêntico</h3><p>Claude Code, Codex, Spec-Driven Development (Spec Kit, BMAD Method), skills e agentes, MCP, engenharia de contexto e prompts, revisão de código gerado por agentes</p></div>
+        <div class="sk"><h3>Front-end e mobile</h3><p>React, TypeScript, Next.js, Astro, React Native, Swift/SwiftUI</p></div>
+        <div class="sk"><h3>Back-end e dados</h3><p>Python, APIs REST, webhooks, integrações entre sistemas, PostgreSQL, Supabase, SQLite, Xano</p></div>
+        <div class="sk"><h3>Engenharia e DevOps</h3><p>Git, GitHub (branches, pull requests), Docker, Vercel, Cloudflare, debugging, documentação técnica e de regras de negócio</p></div>
+        <div class="sk"><h3>Low-Code</h3><p>Bubble.io integrado a serviços e bancos externos. Formação pela Comunidade Sem Codar (Renato Asse)</p></div>
+        <div class="sk"><h3>Idiomas</h3><p>Português nativo. Inglês intermediário: boa leitura e compreensão, conversação em desenvolvimento</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="contact">
+    <div class="wrap">
+      <span class="label">06 — Contato</span>
+      <h2 style="margin-top:28px">Vamos <em>conversar</em>.</h2>
+      <div class="links">
+        <a href="mailto:sgraick10@gmail.com"><span class="label">E-mail</span><b>sgraick10@gmail.com</b></a>
+        <a href="https://wa.me/5531997460156" target="_blank" rel="noopener"><span class="label">WhatsApp</span><b>(31) 99746-0156</b></a>
+        <a href="https://www.linkedin.com/in/raicksilva" target="_blank" rel="noopener"><span class="label">LinkedIn</span><b>in/raicksilva ↗</b></a>
+        <a href="https://github.com/sgraick10-maker" target="_blank" rel="noopener"><span class="label">GitHub</span><b>sgraick10-maker ↗</b></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Raick Silva</span><span>Coronel Fabriciano, MG · Brasil</span></div></footer>
+
+<script>
+(() => {
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+  btn.addEventListener('click', () => { const o = menu.classList.toggle('open'); btn.setAttribute('aria-expanded', o); btn.textContent = o ? 'Fechar' : 'Menu'; });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('open'); btn.setAttribute('aria-expanded', false); btn.textContent = 'Menu'; }));
+
+  const lines = [
+    ['<span class="a">$</span>', '<span class="k">/specify</span> escalas de ministérios'],
+    ['<span class="g">✓</span>', 'spec.md · requisitos e critérios de aceite'],
+    ['<span class="a">$</span>', '<span class="k">/plan</span>'],
+    ['<span class="g">✓</span>', 'schema · RLS · tarefas pequenas'],
+    ['<span class="a">$</span>', '<span class="k">/implement</span>'],
+    ['<span class="g">✓</span>', 'testes passando'],
+    ['<span class="a">$</span>', '<span class="k">review</span> diff · segurança · testes'],
+    ['<span class="g">✓</span>', 'pull request aberto · deploy em preview'],
+  ];
+  const term = document.getElementById('term');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const row = (l) => `<div class="ln"><span>${l[0]}</span><span>${l[1]}</span></div>`;
+  if (reduce) { term.innerHTML = lines.map(row).join(''); return; }
+  let i = 0;
+  const tick = () => {
+    if (i < lines.length) { term.innerHTML = lines.slice(0, ++i).map(row).join('') + '<div class="ln"><span class="caret"></span></div>'; setTimeout(tick, i % 2 ? 520 : 900); }
+    else setTimeout(() => { i = 0; tick(); }, 4200);
+  };
+  setTimeout(tick, 900);
+})();
+</script>
+</body>
+</html>
