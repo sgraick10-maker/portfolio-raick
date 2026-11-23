@@ -202,7 +202,8 @@ pre.pv.is-on{transform:translateY(-50%)}
 .visit{margin-top:12px;font-size:12px;padding:7px 14px;border:1px solid var(--line-d);border-radius:99px;transition:background .3s,border-color .3s}
 .work-caption a:hover .visit{background:var(--accent);border-color:var(--accent)}
 .wk-idx{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
-.work-list{display:none;list-style:none}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.work-list{list-style:none}
 
 /* products accordion */
 .big{font-size:clamp(44px,6.4vw,104px);font-weight:600;letter-spacing:-.05em;line-height:.95;margin-bottom:clamp(36px,5vw,64px)}

@@ -22,7 +22,7 @@ const scrollTo = (target) => {
   if (!el) return;
   lenis ? lenis.scrollTo(el, { duration: 1.4 }) : el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
 };
-$$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
+$$('a[href^="#"]:not(#nextBtn)').forEach((a) => a.addEventListener('click', (e) => {
   const id = a.getAttribute('href');
   if (id.length < 2 && id !== '#') return;
   e.preventDefault(); closeMenu(); scrollTo(id === '#' || id === '#top' ? document.body : id);
@@ -40,11 +40,11 @@ addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 /* ---------- next-section button ---------- */
 const stops = ['#sobre', '#servicos', '#processo', '#trabalho', '#produtos', '#experiencia', '#contato'].map((s) => $(s));
 $('#nextBtn').addEventListener('click', (e) => {
-  e.preventDefault(); e.stopImmediatePropagation();
+  e.preventDefault();
   const y = scrollY + 10;
   const next = stops.find((el) => el.getBoundingClientRect().top + scrollY > y + 4) || document.body;
   scrollTo(next);
-}, true);
+});
 ScrollTrigger.create({ trigger: '#contato', start: 'top 70%', end: 'max', onToggle: (s) => gsap.to('#nextBtn', { autoAlpha: s.isActive ? 0 : 1, duration: .3 }) });
 
 /* ---------- clock + mini globe ---------- */
