@@ -100,6 +100,22 @@ h2 em{font-style:italic;color:var(--accent)}
 .proj .stack{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
 .tag{font-family:var(--mono);font-size:12px;color:var(--muted);padding:4px 9px;background:var(--bg2);border:1px solid var(--line);border-radius:6px}
 
+
+/* sites */
+.sites{display:grid;grid-template-columns:repeat(2,1fr);gap:48px 32px}
+.site{display:block}
+.site:first-child{grid-column:1/-1}
+.site:first-child .shot{aspect-ratio:21/9}
+.shot{aspect-ratio:16/10;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--bg2)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.site:hover .shot img{transform:scale(1.025)}
+.site-meta{display:flex;justify-content:space-between;align-items:start;gap:16px;margin-top:16px}
+.site h3{font-family:var(--serif);font-weight:400;font-size:24px;letter-spacing:-.01em}
+.site p{color:var(--muted);font-size:14.5px;margin-top:2px}
+.site .arrow{color:var(--muted);transition:color .2s}
+.site:hover .arrow{color:var(--accent)}
+@media (max-width:720px){.sites{grid-template-columns:1fr;gap:40px}.site:first-child .shot{aspect-ratio:16/10}}
+
 /* timeline */
 .tl{display:grid}
 .row{display:grid;grid-template-columns:220px 1fr auto;gap:40px;padding:26px 0;border-top:1px solid var(--line);align-items:baseline}
@@ -166,6 +182,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <ul id="menu">
       <li><a href="#processo">Processo</a></li>
       <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#sites">Sites</a></li>
       <li><a href="#experiencia">Experiência</a></li>
       <li><a href="#competencias">Competências</a></li>
       <li><a href="#contato" class="cta">Contato</a></li>
@@ -285,10 +302,53 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     </div>
   </section>
 
+
+  <section id="sites">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">03 — Sites publicados</span>
+        <div>
+          <h2>Sites no ar para <em>negócios locais</em>.</h2>
+          <p>Feitos com Astro e publicados no Cloudflare Pages, do conceito visual ao deploy. Clique para abrir o site.</p>
+        </div>
+      </div>
+      <div class="sites">
+        <a class="site" href="https://lindacerimonial.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/lindacerimonial.jpg" alt="Página inicial do site Linda Cerimonial" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Linda Cerimonial</h3><p>Cerimonial de casamentos · Vale do Aço</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://oliveirabezerra.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/oliveirabezerra.jpg" alt="Página inicial do site Oliveira &amp; Bezerra" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Oliveira &amp; Bezerra</h3><p>Advocacia · Ipatinga</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://genainapatricia.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/genainapatricia.jpg" alt="Página inicial do site Dra. Genaina Patrícia" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Dra. Genaina Patrícia</h3><p>Odontologia · Caratinga</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://limiarstudio.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/limiarstudio.jpg" alt="Página inicial do site Limiar" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Limiar</h3><p>Arquitetura e engenharia · Ipatinga</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://arena-praia-fabri.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/arena-praia-fabri.jpg" alt="Página inicial do site Arena Praia Fabri" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Arena Praia Fabri</h3><p>Beach tennis e vôlei · Cel. Fabriciano</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://autotech-car-service.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/autotech-car-service.jpg" alt="Página inicial do site Autotech" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Autotech</h3><p>Mecânica e remap · Cel. Fabriciano</p></div><span class="arrow">↗</span></div>
+        </a>
+        <a class="site" href="https://borracharia-do-belengo.pages.dev" target="_blank" rel="noopener">
+          <div class="shot"><img src="img/borracharia-do-belengo.jpg" alt="Página inicial do site Borracharia do Belengo" loading="lazy" width="1200" height="750"></div>
+          <div class="site-meta"><div><h3>Borracharia do Belengo</h3><p>Pneus e serviços · Cel. Fabriciano</p></div><span class="arrow">↗</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section id="experiencia">
     <div class="wrap">
       <div class="sec-head">
-        <span class="label">03 — Experiência</span>
+        <span class="label">04 — Experiência</span>
         <div>
           <h2>Quase <em>5 anos</em> construindo produtos.</h2>
           <p>Software houses, startups e clientes diretos. Antes disso, redes e fibra óptica em campo.</p>
@@ -310,7 +370,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <section id="competencias">
     <div class="wrap">
       <div class="sec-head">
-        <span class="label">04 — Competências</span>
+        <span class="label">05 — Competências</span>
         <div><h2>Stack e <em>ferramentas</em>.</h2></div>
       </div>
       <div class="skills">
@@ -326,7 +386,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
   <section id="contato" class="contact">
     <div class="wrap">
-      <span class="label">05 — Contato</span>
+      <span class="label">06 — Contato</span>
       <h2 style="margin-top:28px">Vamos <em>conversar</em>.</h2>
       <div class="links">
         <a href="mailto:sgraick10@gmail.com"><span class="label">E-mail</span><b>sgraick10@gmail.com</b></a>
