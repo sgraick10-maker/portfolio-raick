@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { initLang, ui } from './i18n.js';
+import { initClosing } from './closing.js';
+import { initMottoAscii } from './motto-ascii.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -49,7 +51,7 @@ ScrollTrigger.create({ trigger: '#contato', start: 'top 70%', end: 'max', onTogg
 
 /* ---------- clock + mini globe ---------- */
 const clock = $('#clock');
-const tick = () => { clock.textContent = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }).format(new Date()); };
+const tick = () => { const t = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }).format(new Date()); clock.textContent = t; const wc = $('#wmClock'); if (wc) wc.textContent = t; };
 tick(); setInterval(tick, 15000);
 (() => {
   const c = $('#globe'), x = c.getContext('2d'); const pts = [];
@@ -170,12 +172,13 @@ const hero = (() => {
 (() => {
   const n = { v: 0 }, el = $('#count');
   gsap.set('.hero h1, .hero-copy p, .hero-ctas, .hero-clock, .nav', { autoAlpha: 0, y: 20 });
-  gsap.timeline()
-    .to(n, { v: 100, duration: reduce ? 0.1 : 1.8, ease: 'power2.inOut', onUpdate: () => { el.textContent = Math.round(n.v); } })
+  const reveal = (tl) => tl
     .to('#loader', { yPercent: -100, duration: reduce ? 0 : 1, ease: 'expo.inOut' }, '+=.15')
     .add(() => { document.body.classList.remove('is-loading'); lenis?.start(); hero.gather(); $('#loader').remove(); }, '-=.5')
     .to('.nav', { autoAlpha: 1, y: 0, duration: .8 }, '-=.2')
     .to('.hero h1, .hero-copy p, .hero-ctas, .hero-clock', { autoAlpha: 1, y: 0, duration: 1, stagger: .1, ease: 'power3.out' }, '-=.4');
+  reveal(gsap.timeline()
+    .to(n, { v: 100, duration: reduce ? 0.1 : 1.8, ease: 'power2.inOut', onUpdate: () => { el.textContent = Math.round(n.v); } }));
 })();
 
 /* ---------- cine: zoom-out + palavras ---------- */
@@ -336,6 +339,10 @@ function stepper(section, count, onStep, perStep = 70) {
   });
   $$('.exp-list li')[0].classList.add('is-on');
 })();
+
+/* ---------- motto ASCII + closing wordmark ---------- */
+initMottoAscii({ reduce });
+initClosing({ reduce });
 
 /* ---------- section reveals ---------- */
 if (!reduce) {

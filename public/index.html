@@ -11,7 +11,8 @@
 <meta name="theme-color" content="#0b0b0c">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@700&display=swap">
+<link rel="stylesheet" href="styles.css?v=3">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
 <link rel="canonical" href="https://raicksilva.com.br/">
 <meta property="og:url" content="https://raicksilva.com.br/">
@@ -262,6 +263,7 @@
 
   <!-- LEMA -->
   <section class="dark motto">
+    <canvas class="motto-bg" aria-hidden="true"></canvas>
     <small>Meu lema</small>
     <h2>O agente escreve.<br><span>Eu respondo pelo código.</span></h2>
   </section>
@@ -270,6 +272,7 @@
   <section class="light contact" id="contato">
     <div class="sec-top"><span>(06)</span><b>Contato</b><em>Respondo no mesmo dia</em></div>
     <h2 class="big">Vamos construir<br>algo juntos?</h2>
+    <p class="wm-live"><i></i><span class="wm-a">Online agora</span> · <span id="wmClock">--:--</span> <span class="wm-b">em Coronel Fabriciano · resposta no mesmo dia</span></p>
     <div class="contact-row">
       <a href="mailto:sgraick10@gmail.com"><small>E-mail</small><b>sgraick10@gmail.com</b></a>
       <a href="https://wa.me/5531997460156" target="_blank" rel="noopener"><small>WhatsApp</small><b>(31) 99746-0156</b></a>
@@ -277,12 +280,13 @@
       <a href="https://github.com/sgraick10-maker" target="_blank" rel="noopener"><small>GitHub</small><b>sgraick10-maker ↗</b></a>
     </div>
     <footer><span>© 2026 Raick Silva</span><span>Coronel Fabriciano, MG · Brasil</span><a href="#top">Voltar ao topo ↑</a></footer>
+    <div class="wm" aria-hidden="true"><span>RAICK SILVA</span></div>
   </section>
 </main>
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
-<script type="module" src="main.js"></script>
+<script type="module" src="main.js?v=3"></script>
 </body>
 </html>

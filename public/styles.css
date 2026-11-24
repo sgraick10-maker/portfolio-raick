@@ -257,6 +257,23 @@ pre.pv.is-on{transform:translateY(-50%)}
 .contact-row b{font-weight:500;font-size:17px;word-break:break-word}
 .contact footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(80px,10vw,140px);padding-top:20px;border-top:1px solid var(--line-l);font-size:13px;color:#6d6c68}
 
+/* motto: ASCII background (ref: Scrolltide "ASCII Flow") */
+.motto{position:relative;overflow:hidden;isolation:isolate}
+.motto-bg{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.motto::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(55% 40% at 50% 52%,rgba(11,11,12,.8),rgba(11,11,12,.2) 70%,transparent)}
+
+/* closing: live line, full-bleed wordmark (ref: jeppesen.dev) and inspect mode (ref: Scrolltide "Drop a line") */
+.contact{padding-bottom:0;overflow:hidden}
+.wm-live{display:flex;align-items:center;flex-wrap:wrap;gap:0 6px;margin:-30px 0 48px;font-size:14px;color:#55544f}
+.wm-live i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(74,222,128,.18);flex:none;margin-right:4px}
+.wm{margin:clamp(40px,6vw,80px) 0 0;line-height:.74;overflow:hidden;padding-top:.02em}
+.wm span{display:inline-block;white-space:nowrap;transition-property:none;font-family:"Clash Grotesk",var(--f);font-weight:700;letter-spacing:-.03em;color:#111;transform-origin:left bottom}
+.wm-layer{position:fixed;inset:0;z-index:60;overflow:hidden;pointer-events:none}
+.wm-inspect{position:absolute;left:0;top:0;outline:1px dashed var(--accent);background:rgba(93,95,239,.06);opacity:0;transition:opacity .15s,transform .12s}
+.wm-tag{position:absolute;left:-1px;bottom:100%;margin-bottom:6px;white-space:nowrap;background:var(--accent);color:#fff;font:500 11px/1.35 var(--mono);padding:4px 8px;border-radius:4px}
+.wm-tag span{opacity:.8}
+.wm-inspect.below .wm-tag{bottom:auto;top:100%;margin:6px 0 0}
+
 /* responsive */
 @media (max-width:1100px){
   .nav-role{display:none}.nav{justify-content:space-between}.nav-brand{flex:1}

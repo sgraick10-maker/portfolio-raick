@@ -76,6 +76,8 @@ const EN = {
   '.motto h2': 'The agent writes.<br><span>I answer for the code.</span>',
   '#contato .sec-top': '<span>(06)</span><b>Contact</b><em>I reply the same day</em>',
   '#contato .big': 'Shall we build<br>something together?',
+  '.wm-live .wm-a': 'Online now',
+  '.wm-live .wm-b': 'in Coronel Fabriciano · same-day reply',
   '.contact footer span:nth-child(2)': 'Coronel Fabriciano, MG · Brazil',
   '.contact footer a': 'Back to top ↑',
 };
